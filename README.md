@@ -37,9 +37,11 @@ Observed:
 
 The capture was saved as: scan_capture.pcapng
 
+---
+
 ## Wireshark Filters Used
 Filter	Purpose
-tcp.flags.syn == 1 and tcp.flags.ack == 0	Displays SYN packets (scanning)
-tcp.flags.syn == 1 and tcp.flags.ack == 1	Displays SYN-ACK replies (open)
-tcp.flags.reset == 1	Displays RST packets (closed)
-arp	Displays ARP requests and replies
+- tcp.flags.syn == 1 and tcp.flags.ack == 0	Displays SYN packets (scanning)
+- tcp.flags.syn == 1 and tcp.flags.ack == 1	Displays SYN-ACK replies (open)
+- tcp.flags.reset == 1	Displays RST packets (closed)
+- arp	Displays ARP requests and replies
