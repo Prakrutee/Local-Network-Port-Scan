@@ -22,25 +22,24 @@ Using nmap to discover open ports and services in the local network. Understandi
 - Subnet: `255.255.255.0` → CIDR `/24`
 
 ### 2. Run Nmap TCP SYN Scan
-```bash
+''' bash
 nmap -sS 192.168.0.0/24 -oN local_scan.txt
 
-Saved scan results in local_scan.txt
+This performs a TCP SYN scan on all devices in the local network.
 
 ### 3. Capture Packets using Wireshark
-Ran Nmap while capturing packets in Wireshark
+While the Nmap scan was running, Wireshark was used to capture the packet exchange between the scanner and local devices.
 Observed:
-- ARP requests
-- TCP SYN (port scan attempts)
-- SYN-ACK (open ports) or RST (closed ports)
-- Saved as: scan_capture.pcapng
+- ARP Requests – for resolving IP addresses to MAC addresses
+- TCP SYN Packets – used by Nmap to scan ports
+- SYN-ACK Packets – received from open ports
+- RST Packets – from closed ports rejecting the connection
+
+The capture was saved as: scan_capture.pcapng
 
 ## Wireshark Filters Used
-
-| Filter                                      | Purpose                            |
-| ------------------------------------------- | ---------------------------------- |
-| `tcp.flags.syn == 1 and tcp.flags.ack == 0` | Shows SYN packets (Nmap scanning)  |
-| `tcp.flags.syn == 1 and tcp.flags.ack == 1` | Shows SYN-ACK replies (open ports) |
-| `tcp.flags.reset == 1`                      | Shows RST replies (closed ports)   |
-| `arp`                                       | Shows ARP IP → MAC discovery       |
-
+Filter	Purpose
+tcp.flags.syn == 1 and tcp.flags.ack == 0	Displays SYN packets (scanning)
+tcp.flags.syn == 1 and tcp.flags.ack == 1	Displays SYN-ACK replies (open)
+tcp.flags.reset == 1	Displays RST packets (closed)
+arp	Displays ARP requests and replies
